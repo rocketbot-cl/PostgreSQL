@@ -52,7 +52,7 @@ if module == "execute":
         query = query_
         cursor.execute(query)
 
-        if "select" in query.lower():
+        if query.lower().startswith("select"):
 
 
             col = [d[0] for d in cursor.description]
