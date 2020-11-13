@@ -11,8 +11,10 @@ base_path = tmp_global_obj["basepath"]
 cur_path = base_path + 'modules' + os.sep + 'PostgreSQL' + os.sep + 'libs' + os.sep
 sys.path.append(cur_path)
 print(cur_path)
+import platform
 
-import psycopg2
+platform_ = platform.system()
+print(platform_)
 
 module = GetParams('module')
 
@@ -22,19 +24,36 @@ if module == "connect":
     password = GetParams('password')
     database = GetParams('database')
     var_ = GetParams('var_')
-    print(hostname,username,password,database)
 
-    status = False
+    if "indows" in platform_:
+        import psycopg2
 
-    try:
-        conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
-        cursor = conn.cursor()
-        status = True
-    except:
-        PrintException()
+        status = False
 
+        try:
+            conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+            cursor = conn.cursor()
+            status = True
+        except:
+            PrintException()
 
-    SetVar(var_,status)
+        SetVar(var_, status)
+
+    else:
+        import pgdb
+
+        params = {'host': hostname, 'database': database, 'user': username, 'password': password}
+
+        status = False
+        try:
+            conn = pgdb.connect(**params)
+            cursor = conn.cursor()
+            status = True
+
+        except:
+            PrintException()
+
+        SetVar(var_, status)
 
 
 if module == "execute":
@@ -42,41 +61,58 @@ if module == "execute":
     result = []
     var_ = GetParams('var_')
 
-    try:
-        conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
-        cursor = conn.cursor()
-    except:
-        PrintException()
+    if "indows" in platform_:
 
-    try:
-        query = query_
-        cursor.execute(query)
+        try:
+            query = query_
+            cursor.execute(query)
 
-        if query.lower().startswith("select"):
+            if query.lower().startswith("select"):
 
+                col = [d[0] for d in cursor.description]
+                rows = cursor.fetchall()
 
-            col = [d[0] for d in cursor.description]
-            print('COL', col)
+                for row in rows:
+                    ob_ = {}
+                    t = 0
+                    for r in row:
+                        ob_[col[t]] = str(r) + ""
+                        t = t + 1
+                    result.append(ob_)
 
-            rows = cursor.fetchall()
+            else:
+                conn.commit()
+                result = "True"
 
-            for row in rows:
-                # print(row)
-                ob_ = {}
-                t = 0
-                for r in row:
-                    ob_[col[t]] = str(r) + ""
-                    t = t + 1
-                result.append(ob_)
+            SetVar(var_, result)
+        except Exception as e:
+            PrintException()
+            raise e
+    else:
+        try:
+            cursor.execute(query_)
 
-        else:
-            conn.commit()
-            result = "True"
-            #result = cur.rowcount
+            if query_.lower().startswith("select"):
+                col = [d[0] for d in cursor.description]
+                rows = cursor.fetchall()
 
-        # print(result)
-        conn.close()
-        SetVar(var_, result)
-    except Exception as e:
-        PrintException()
-        raise e
+                for row in rows:
+                    ob_ = {}
+                    t = 0
+                    for r in row:
+                        ob_[col[t]] = str(r) + ""
+                        t = t + 1
+                    result.append(ob_)
+
+            else:
+                conn.commit()
+                result = "True"
+
+            SetVar(var_, result)
+
+        except Exception as e:
+            PrintException()
+            raise e
+
+if module == "closeConn":
+    conn.close()
