@@ -8,13 +8,14 @@ global password
 global database
 
 base_path = tmp_global_obj["basepath"]
-cur_path = base_path + 'modules' + os.sep + 'PostgreSQL' + os.sep + 'libs' + os.sep
-sys.path.append(cur_path)
-print(cur_path)
+cur_path = base_path + 'modules' + os.sep + \
+    'PostgreSQL' + os.sep + 'libs' + os.sep
+if cur_path not in sys.path:
+    sys.path.append(cur_path)
+
 import platform
 
 platform_ = platform.system()
-print(platform_)
 
 module = GetParams('module')
 
@@ -61,7 +62,7 @@ if module == "execute":
     result = []
     var_ = GetParams('var_')
 
-    if "indows" in platform_:
+    if platform_.lower() == "windows":
 
         try:
             query = query_
@@ -80,6 +81,20 @@ if module == "execute":
                         t = t + 1
                     result.append(ob_)
 
+            elif query.lower().startswith("insert") and "returning" in query.lower():
+
+                col = [d[0] for d in cursor.description]
+                rows = cursor.fetchall()
+
+                for row in rows:
+                    ob_ = {}
+                    t = 0
+                    for r in row:
+                        ob_[col[t]] = str(r) + ""
+                        t = t + 1
+                    result.append(ob_)
+
+                conn.commit()
             else:
                 conn.commit()
                 result = "True"
