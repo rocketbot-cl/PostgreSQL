@@ -62,72 +62,46 @@ if module == "execute":
     result = []
     var_ = GetParams('var_')
 
-    if platform_.lower() == "windows":
+    try:
+        query = query_
+        cursor.execute(query)
 
-        try:
-            query = query_
-            cursor.execute(query)
+        if query.lower().startswith("select"):
 
-            if query.lower().startswith("select"):
+            col = [d[0] for d in cursor.description]
+            rows = cursor.fetchall()
 
-                col = [d[0] for d in cursor.description]
-                rows = cursor.fetchall()
+            for row in rows:
+                ob_ = {}
+                t = 0
+                for r in row:
+                    ob_[col[t]] = str(r) + ""
+                    t = t + 1
+                result.append(ob_)
 
-                for row in rows:
-                    ob_ = {}
-                    t = 0
-                    for r in row:
-                        ob_[col[t]] = str(r) + ""
-                        t = t + 1
-                    result.append(ob_)
+        elif query.lower().startswith("insert") and "returning" in query.lower():
 
-            elif query.lower().startswith("insert") and "returning" in query.lower():
+            col = [d[0] for d in cursor.description]
+            rows = cursor.fetchall()
 
-                col = [d[0] for d in cursor.description]
-                rows = cursor.fetchall()
+            for row in rows:
+                ob_ = {}
+                t = 0
+                for r in row:
+                    ob_[col[t]] = str(r) + ""
+                    t = t + 1
+                result.append(ob_)
 
-                for row in rows:
-                    ob_ = {}
-                    t = 0
-                    for r in row:
-                        ob_[col[t]] = str(r) + ""
-                        t = t + 1
-                    result.append(ob_)
+            conn.commit()
+        else:
+            conn.commit()
+            result = "True"
 
-                conn.commit()
-            else:
-                conn.commit()
-                result = "True"
+        SetVar(var_, result)
+    except Exception as e:
+        PrintException()
+        raise e
 
-            SetVar(var_, result)
-        except Exception as e:
-            PrintException()
-            raise e
-    else:
-        try:
-            cursor.execute(query_)
-
-            if query_.lower().startswith("select"):
-                col = [d[0] for d in cursor.description]
-                rows = cursor.fetchall()
-
-                for row in rows:
-                    ob_ = {}
-                    t = 0
-                    for r in row:
-                        ob_[col[t]] = str(r) + ""
-                        t = t + 1
-                    result.append(ob_)
-
-            else:
-                conn.commit()
-                result = "True"
-
-            SetVar(var_, result)
-
-        except Exception as e:
-            PrintException()
-            raise e
 
 if module == "closeConn":
     conn.close()
