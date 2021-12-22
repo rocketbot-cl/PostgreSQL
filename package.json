@@ -46,6 +46,20 @@
             "id": "hostname",
             "css": "col-md-12"
           },
+          {
+            "type": "input",
+            "placeholder": "5432",
+            "title": {
+              "es": "Port:",
+              "en": "Port:"
+            },
+            "help": {
+                "es" :"Dejar en blanco para tomar el puerto por defecto",
+                "en" : "Leave empty for default port"
+            },
+            "id": "dbport",
+            "css": "col-md-12"
+          },
            {
             "type": "input",
             "placeholder": "test",

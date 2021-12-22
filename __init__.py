@@ -24,6 +24,9 @@ if module == "connect":
     username = GetParams('username')
     password = GetParams('password')
     database = GetParams('database')
+    dbport = GetParams("dbport")
+    if not dbport:
+        dbport = 5432
     var_ = GetParams('var_')
 
     if "indows" in platform_:
@@ -32,7 +35,7 @@ if module == "connect":
         status = False
 
         try:
-            conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+            conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database, port=dbport)
             cursor = conn.cursor()
             status = True
         except:
@@ -43,7 +46,7 @@ if module == "connect":
     else:
         import pgdb
 
-        params = {'host': hostname, 'database': database, 'user': username, 'password': password}
+        params = {'host': hostname, 'database': database, 'user': username, 'password': password, 'port': dbport}
 
         status = False
         try:
