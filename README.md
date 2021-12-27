@@ -1,23 +1,45 @@
+
+
+
+
 # PostgreSQL
- Module to connect to an PostgreSQL Database
+  
+Module to connect to a PostgreSQL database.
+
+## How to install this module
+  
+__Download__ and __install__ the content in 'modules' folder in Rocketbot path  
 
 
-![alt text](https://raw.githubusercontent.com/rocketbot-cl/PostgreSQL/master/example/postgres.png)
+## How to use this module
+In order to use this module, you need to have a database (cloud or on-premise) already 
+running.
 
-<h2>Dependencies</h2>
 
-<ul>
-  <li>
-    <strong>
-      <a href="https://pypi.org/project/psycopg2/">psycopg2</a>
-    </strong> 
-  </li>  
-</ul>  
+## Overview
 
-<h2>License</h2>
 
-<p><a href="http://badges.mit-license.org" rel="nofollow"><img src="https://camo.githubusercontent.com/107590fac8cbd65071396bb4d04040f76cde5bde/687474703a2f2f696d672e736869656c64732e696f2f3a6c6963656e73652d6d69742d626c75652e7376673f7374796c653d666c61742d737175617265" alt="License" data-canonical-src="http://img.shields.io/:license-mit-blue.svg?style=flat-square" style="max-width:100%;"></a></p>
+1. Connect DB  
+Connect to PostgreSQL DB
 
-<ul>
-  <li><strong><a href="http://opensource.org/licenses/mit-license.php" rel="nofollow">MIT license</a></strong></li>
-</ul>  
+2. Execute a query  
+Execute query
+
+3. Close Connection  
+Close connection to PostgreSQL DB  
+
+
+----
+### OS
+
+- windows
+- mac
+- linux
+- docker
+
+### Dependencies
+- [**pygresql**](https://pypi.org/project/pygresql/)- [**psycopg2**](https://pypi.org/project/psycopg2/)
+### License
+  
+![MIT](https://camo.githubusercontent.com/107590fac8cbd65071396bb4d04040f76cde5bde/687474703a2f2f696d672e736869656c64732e696f2f3a6c6963656e73652d6d69742d626c75652e7376673f7374796c653d666c61742d737175617265)  
+[MIT](http://opensource.org/licenses/mit-license.ph)
