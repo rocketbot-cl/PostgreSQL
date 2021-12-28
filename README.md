@@ -20,13 +20,13 @@ running.
 
 
 1. Connect DB  
-Connect to PostgreSQL DB
+Connect to PostgreSQL DB.
 
 2. Execute a query  
-Execute query
+Execute a query to interact with the database.
 
 3. Close Connection  
-Close connection to PostgreSQL DB  
+Close connection to PostgreSQL DB.
 
 
 ----
