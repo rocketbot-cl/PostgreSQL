@@ -28,6 +28,11 @@ Execute a query to interact with the database.
 3. Close Connection  
 Close connection to PostgreSQL DB.
 
+---
+
+## Updates
+### 28-Dic-2021
+- Add port input for connections through non default port.
 
 ----
 ### OS
