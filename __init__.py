@@ -10,8 +10,16 @@ global database
 base_path = tmp_global_obj["basepath"]
 cur_path = base_path + 'modules' + os.sep + \
     'PostgreSQL' + os.sep + 'libs' + os.sep
-if cur_path not in sys.path:
-    sys.path.append(cur_path)
+
+
+cur_path_x64 = os.path.join(cur_path, 'Windows' + os.sep +  'x64' + os.sep)
+cur_path_x86 = os.path.join(cur_path, 'Windows' + os.sep +  'x86' + os.sep)
+
+if sys.maxsize > 2**32 and cur_path_x64 not in sys.path:
+    sys.path.append(cur_path_x64)
+
+if sys.maxsize < 2**32 and cur_path_x86 not in sys.path:
+    sys.path.append(cur_path_x86)
 
 import platform
 
@@ -38,8 +46,10 @@ if module == "connect":
             conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database, port=dbport)
             cursor = conn.cursor()
             status = True
-        except:
+        except Exception as e:
             PrintException()
+            SetVar(var_, status)
+            raise e
 
         SetVar(var_, status)
 
@@ -54,8 +64,10 @@ if module == "connect":
             cursor = conn.cursor()
             status = True
 
-        except:
+        except Exception as e:
             PrintException()
+            SetVar(var_, status)
+            raise e
 
         SetVar(var_, status)
 
