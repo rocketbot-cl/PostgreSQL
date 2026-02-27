@@ -4,47 +4,47 @@
 
 # PostgreSQL
   
-Modulo para conectarse a una DB PostgreSQL  
+Module to connect to a PostgreSQL DB  
+
+*Read this in other languages: [English](Manual_PostgreSQL.md), [Português](Manual_PostgreSQL.pr.md), [Español](Manual_PostgreSQL.es.md)*
   
 ![banner](imgs/Banner_PostgreSQL.png)
-## Como instalar este módulo
+## How to install this module
   
-__Descarga__ e __instala__ el contenido en la carpeta 'modules' en la ruta de rocketbot.  
+To install the module in Rocketbot Studio, it can be done in two ways:
+1. Manual: __Download__ the .zip file and unzip it in the modules folder. The folder name must be the same as the module and inside it must have the following files and folders: \__init__.py, package.json, docs, example and libs. If you have the application open, refresh your browser to be able to use the new module.
+2. Automatic: When entering Rocketbot Studio on the right margin you will find the **Addons** section, select **Install Mods**, search for the desired module and press install.  
+
+## How to use this module
+In order to use this module, you need to have a database (cloud or on-premise) already running.
 
 
+## Description of the commands
 
-
-## Como usar este módulo
-Para usar este módulo, tienes que tener una base de datos (en la nube o on-premise) ya 
-creada.
-
-
-
-## Descripción de los comandos
-
-### Conectar BD
+### Connect DB
   
-Conectarse a una BD PostgreSQL
-|Parámetros|Descripción|ejemplo|
+Connect to PostgreSQL DB
+|Parameters|Description|example|
 | --- | --- | --- |
-|Hostname|IP o dominio del servidor|localhost|
-|Port|Puerto de conexión al servidor|5432|
-|Usuario|Usuario de la base de datos|user|
-|Contraseña|Contraseña del usuario de la base de datos|******|
-|Base de datos|Nombre de la base de datos a conectar|test|
-|Asignar a variable|Variable en la cual contener el resultado de la conexión|Variable|
+|Hostname|IP or domain of the server|localhost|
+|Port|Port of conection to the server|5432|
+|Username|User of the database|username|
+|Password|Password of the user|******|
+|Database|Database name to conect|test|
+|SSL|Check if the connection requires SSL||
+|Assign to variable|Variable where to store database conection status|Variable|
 
-### Ejecutar una query
+### Execute a query
   
-Ejecuta una query hacia la bd PostgreSQL
-|Parámetros|Descripción|ejemplo|
+Execute query
+|Parameters|Description|example|
 | --- | --- | --- |
-|Query|Query que se desea ejecutar en la base de datos|SELECT * from table|
-|Asignar resultado a variable|Variable en la cual contener el resultado del query|Variable|
+|Query|Query to exceute in the database|SELECT * from table|
+|Set result to var|Variable where to store query result|Variable|
 
-### Cerrar Conexión
+### Close Connection
   
-Cierra la conexión a la BD PostgreSQL
-|Parámetros|Descripción|ejemplo|
+Close connection to PostgreSQL DB
+|Parameters|Description|example|
 | --- | --- | --- |
 ||||

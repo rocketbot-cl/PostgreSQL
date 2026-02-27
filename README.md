@@ -4,35 +4,33 @@
 
 # PostgreSQL
   
-Module to connect to a PostgreSQL database.
+Module to connect to a PostgreSQL DB  
+
+*Read this in other languages: [English](README.md), [Português](README.pr.md), [Español](README.es.md)*
 
 ## How to install this module
   
-__Download__ and __install__ the content in 'modules' folder in Rocketbot path  
-
-
-## How to use this module
-In order to use this module, you need to have a database (cloud or on-premise) already 
-running.
+To install the module in Rocketbot Studio, it can be done in two ways:
+1. Manual: __Download__ the .zip file and unzip it in the modules folder. The folder name must be the same as the module and inside it must have the following files and folders: \__init__.py, package.json, docs, example and libs. If you have the application open, refresh your browser to be able to use the new module.
+2. Automatic: When entering Rocketbot Studio on the right margin you will find the **Addons** section, select **Install Mods**, search for the desired module and press install.  
 
 
 ## Overview
 
 
 1. Connect DB  
-Connect to PostgreSQL DB.
+Connect to PostgreSQL DB
 
 2. Execute a query  
-Execute a query to interact with the database.
+Execute query
 
 3. Close Connection  
-Close connection to PostgreSQL DB.
+Close connection to PostgreSQL DB  
 
----
 
-## Updates
-### 28-Dic-2021
-- Add port input for connections through non default port.
+
+### Changes
+Wed Apr 8 11:16:24 2020  Merge branch master of https://github.com/rocketbot-cl/PostgreSQL
 
 ----
 ### OS

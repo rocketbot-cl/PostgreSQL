@@ -33,6 +33,9 @@ if module == "connect":
     password = GetParams('password')
     database = GetParams('database')
     dbport = GetParams("dbport")
+    ssl = GetParams("ssl")  # suele venir "True"/"False" o boolean
+    use_ssl = str(ssl).lower() in ("true", "1", "yes", "on")
+
     if not dbport:
         dbport = 5432
     var_ = GetParams('var_')
@@ -43,7 +46,11 @@ if module == "connect":
         status = False
 
         try:
-            conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database, port=dbport)
+            
+            if use_ssl:
+                conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database, port=dbport, sslmode='require')
+            else:
+                conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database, port=dbport)
             cursor = conn.cursor()
             status = True
         except Exception as e:
@@ -57,7 +64,8 @@ if module == "connect":
         import pgdb
 
         params = {'host': hostname, 'database': database, 'user': username, 'password': password, 'port': dbport}
-
+        if use_ssl:
+            params['sslmode'] = 'require'
         status = False
         try:
             conn = pgdb.connect(**params)
